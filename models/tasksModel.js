@@ -1,90 +1,85 @@
 import conectarAoBanco from "../config/dbConfig.js";
 
-const conexao = await conectarAoBanco();
+const supabase = await conectarAoBanco();
 
+async function getTasksCliente(idCliente){
+    try{
+        const { data, error } = await supabase.from('tasks').select('*').eq('users_id', idCliente)
+    
+        if (error) {
+            throw error;
+        }
 
-// Criar uma nova tarefa
-export const createTodo = async (req, res) => {
-    const { task, done } = req.body;
-
-    const { data, error } = await supabase
-        .from('todos')
-        .insert([{ task, done }])
-        .select();
-
-    if (error) {
-        return res.status(400).json({ error: error.message });
+        console.log(data)
+        return data;
+    }catch(error){
+        console.log(error)
+        throw error
     }
+}
 
-    res.status(201).json(data);
-};
+async function criaTask(idCliente, descricao){
+    try{
+        const { data, error } = await supabase.from('tasks').insert([{ descricao: descricao, users_id: idCliente, finalizada: false}]).select()
+        
+        if (error) {
+            throw error;
+        }
 
-// Listar todas as tarefas
-export const getAllTodos = async (req, res) => {
-    const { data, error } = await supabase
-        .from('todos')
-        .select('*');
-
-    if (error) {
-        return res.status(400).json({ error: error.message });
+        console.log(data)
+        return data;
+    }catch(error){
+        console.log(error)
+        throw error
     }
+}
 
-    res.status(200).json(data);
-};
+async function alteraTask(idTask, desc, finalizado){
+    try{
+        const {data, error} = await supabase.from(tasks).update({descricao: desc, finalizada: finalizado}).eq('id', idTask).select();
 
-// Atualizar uma tarefa
-export const updateTodo = async (req, res) => {
-    const { id } = req.params;
-    const { task, done } = req.body;
+        if (error) {
+            throw error;
+        }
 
-    const { data, error } = await supabase
-        .from('todos')
-        .update({ task, done })
-        .eq('id', id)
-        .select();
-
-    if (error) {
-        return res.status(400).json({ error: error.message });
+        console.log(data)
+        return data;
+    }catch(error){
+        console.log(error)
+        throw error
     }
+}
 
-    res.status(200).json(data);
-};
+async function excluiTasks(idTask){
+    try{
+        const {data, error} = await supabase.from(tasks).delete().eq('id', idTask)
+        
+        if (error) {
+            throw error;
+        }
 
-// Deletar uma tarefa
-export const deleteTodo = async (req, res) => {
-    const { id } = req.params;
-
-    const { error } = await supabase
-        .from('todos')
-        .delete()
-        .eq('id', id);
-
-    if (error) {
-        return res.status(400).json({ error: error.message });
+        console.log(data)
+        return data;
+    }catch(error){
+        console.log(error)
+        throw error
     }
+}
 
-    res.status(204).send();
-};
+async function filtraTarefas(idCliente, finalizado) {
+    try{
+        const {data, error} = await supabase.from(tasks).select('*').eq('users_id', idCliente).eq('finalizada', finalizado)
+        
+        if (error) {
+            throw error;
+        }
 
-// Filtrar tarefas por status (feito ou a fazer)
-export const filterTodos = async (req, res) => {
-    const { status } = req.params;
-
-    let query = supabase
-        .from('todos')
-        .select('*');
-
-    if (status === 'done') {
-        query = query.eq('done', true);
-    } else if (status === 'todo') {
-        query = query.eq('done', false);
+        console.log(data)
+        return data;
+    }catch(error){
+        console.log(error)
+        throw error
     }
+}
 
-    const { data, error } = await query;
-
-    if (error) {
-        return res.status(400).json({ error: error.message });
-    }
-
-    res.status(200).json(data);
-};
+export default {getTasksCliente, criaTask, alteraTask, excluiTasks, filtraTarefas}

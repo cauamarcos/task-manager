@@ -1,16 +1,13 @@
 import express from "express";
-import cors from "cors";
-import {listarTasks, inserirTask, alterarTask, deletarTask} from "../controller/tasksController.js"
+import {listarTasks, criaTask, alterarTask, deletarTask, filtraTarefa} from "../controllers/tasksController.js"
 
-const routes = (app) => {
-    app.use(express.json());
+const router = express.Router();
 
-    app.use(cors());
+//app.use(express.json());
+router.get("/:idUser/", listarTasks);
+router.post("/criar/:idUser/", criaTask);
+router.put("/alterar/:idTask/", alterarTask);
+router.delete("/deletar/:idTask/", deletarTask);
+router.get("/filtrar/:idUser/", filtraTarefa);
 
-    app.get("/tasks/", listarTasks);
-    app.post("/tasks/inserir/", inserirTask);
-    app.put("/tasks/alterar/:id", alterarTask);
-    app.delete("/tasks/deletar/:id", deletarTask)
-}
-
-export default routes;
+export default router;
