@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(blue, rgb(40, 40, 253), rgb(83, 83, 252), rgb(138, 138, 252), rgb(195, 195, 255));
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 2% 0;
+}
+
+#container {
+    display: flex;
+    width: 70%;
+    min-height: 80vh;
+    margin: auto;
+    background-color: #fff;
+    height: max-content;
+    box-shadow: rgba(50, 50, 93, 0.7) 8px 16px 27px -5px;
+}
+
+#title-side {
+    width: 50%;
+    background-color: rgb(0, 0, 240);
+    background-size: cover;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 2.2rem;
+    padding: 0 25px;
+    word-spacing: 10rem;
+}
+
+#form-side {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    padding: 25px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 15px;
+}
+
+.info-line {
+    color: #a1a1a1;
+    font-size: 0.9em;
+    text-align: center;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    padding: 15px 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    border: none;
+    border-bottom: 1px solid #333;
+    padding: 5px 0;
+    width: 100%;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+#actions {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+input[type="submit"],
+button {
+    color: white;
+    font-weight: bold;
+    background-color: rgb(30, 190, 30);
+    padding: 10px 20px;
+    border-radius: 20px;
+    width: 120px;
+    border: none;
+}
+
+input:focus {
+    outline: none;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+#cancel {
+    background-color: red;
+}
