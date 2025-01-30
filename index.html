@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo Avançado</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <div id="container">
+        <h1>Todo Avançado</h1>
+        <form id="add-form">
+            <label for="todo">Adicione sua tarefa</label>
+            <input type="text" id="todo-input" name="todo" placeholder="O que você vai fazer?">
+            <button type="submit"><i class="fa-solid fa-plus"></i></button>
+        </form>
+        <form id="edit-form" class="hide">
+            <label for="edit">Edite a sua tarefa:</label>
+            <input type="text" id="edit-input" name="edit">
+            <button type="submit"><i class="fa-solid fa-check-double"></i></button>
+            <button id="cancel-edit-btn">Cancelar</button>
+        </form>
+        <form id="search-form">
+            <div id="search-side">
+                <label for="search">Pesquisar:</label>
+                <input type="text" id="search-input" name="search" placeholder="Buscar...">
+                <button id="erase-btn"><i class="fa-solid fa-delete-left"></i></button>
+            </div>
+            <div id="filter-side">
+                <label for="filter">Filtrar:</label>
+                <select id="filter-select">
+                    <option value="all">Todos</option>
+                    <option value="done">Feitos</option>
+                    <option value="todo">A fazer</option>
+                </select>
+            </div>
+        </form>
+        <div id="todo-list">
+        </div>
+    </div>
+</body>
+</html>

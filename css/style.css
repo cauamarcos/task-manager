@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url("../img/fundo.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+#container {
+    background-color: #fafafa;
+    height: fit-content;
+    max-width: 400px;
+    margin: 7rem auto;
+    border-radius: 15px;
+    padding: 20px 15px;
+    align-self: center;
+}
+
+h1 {
+    text-align: center;
+    color: #222;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+}
+
+form,
+.todo {
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+input,
+select {
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    box-sizing: content-box;
+    padding: 5px;
+    min-width: 20px;
+    color: rgb(2, 2, 95);
+    border: 1px solid rgb(2, 2, 95);
+}
+
+button i {
+    pointer-events: none;
+}
+
+button:hover {
+    cursor: pointer;
+    color: white;
+    background-color: rgb(2, 2, 95);
+}
+
+#cancel-edit-btn {
+    display: block;
+    margin-top: 10px
+}
+
+#search-form {
+    display: flex;
+}
+
+#search-side {
+    margin-right: 20px;
+}
+
+#search-side input {
+    width: 150px;
+}
+
+#filter-side {
+    padding-left: 20px;
+    border-left: 1px solid #ccc;
+}
+
+#filter-side input {
+    width: 100px;
+}
+
+.todo {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: .3s;
+}
+
+.todo p {
+    flex: 1;
+    font-weight: bold;
+}
+
+.todo button {
+    margin-left: 5px;
+}
+
+.hide {
+    display: none !important;
+}
+
+.done {
+    color: white;
+    text-decoration:line-through;
+    font-style: italic;
+    background-color: rgb(2, 2, 95);
+}
