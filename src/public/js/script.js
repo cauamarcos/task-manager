@@ -1,3 +1,5 @@
+
+
 // Seleções
 const addForm = document.querySelector("#add-form");
 const editForm = document.querySelector("#edit-form");
@@ -43,8 +45,37 @@ function saveTodo(text, done = 0, save = 1) {
 
     todoList.appendChild(todo);
 
+    criarTask(text)
+
     todoInput.value = "";
     todoInput.focus();
+}
+
+async function criarTask(descricao) {
+    try {
+        //const idCliente = sessionStorage.getItem("idCliente");
+        const idCliente = window.clienteId;
+        if (!idCliente) {
+            // Redireciona para o login se não houver ID
+            window.location.href = "../templates/login.html";
+        }
+        //console.log(idCliente)
+        const response = await fetch(`http://localhost:3000/tasks/criar/${idCliente}/`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                descricao: descricao, 
+            })
+        });
+        const novaTarefa = await response.json();
+        console.log("Tarefa criada:", novaTarefa);
+        return novaTarefa;
+
+    } catch(error) {
+        console.error("Erro ao criar tarefas:", error);
+    }
 }
 
 const toggleForms = () => {
@@ -179,4 +210,3 @@ filterSelect.addEventListener("change", (e) => {
 });
 
 // inicialização
-loadTodos();

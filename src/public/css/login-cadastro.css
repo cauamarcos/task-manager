@@ -108,6 +108,6 @@ button:hover {
     cursor: pointer;
 }
 
-#cancel {
+#cancel-btn {
     background-color: red;
 }

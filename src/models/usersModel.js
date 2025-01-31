@@ -16,14 +16,12 @@ async function logarUser(email, senha) {
         if (error) {
             throw error;
         }
-        console.log(data)
         if (data.length === 0) {
             return {
                 status: false,
                 msg: "Email ou senha incorretos"
             };
         }
-
         return {
             status: true,
             msg: "Usuario autenticado"

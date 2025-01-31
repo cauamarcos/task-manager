@@ -6,7 +6,6 @@ const supabase = await conectarAoBanco();
 async function listarTasks(idCliente) {
     try {
         const { data, error } = await supabase.from('tasks').select('*').eq('users_id', idCliente);
-
         if (error) {
             return { status: false, msg: `Erro ao listar tarefas: ${error.message}`, data: null };
         }
@@ -19,6 +18,7 @@ async function listarTasks(idCliente) {
 
 // Cria uma task para um user
 async function criarTask(idCliente, descricao) {
+    console.log(descricao);
     try {
         const { data, error } = await supabase.from('tasks').insert([{ descricao: descricao, users_id: idCliente, finalizada: false }]).select();
 

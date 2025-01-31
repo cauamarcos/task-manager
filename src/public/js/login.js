@@ -39,12 +39,13 @@ form.addEventListener("submit", async function (e) {
             body: JSON.stringify({ email: email, senha: password })
         });
         const data = await response.json();
-        console.log(data)
         if (!data.status) {
             throw new Error("Erro! E-mail ou senha invalidos");
         }
-        else{
-            console.log("Mardem")
+        else {
+            console.log(data.id)
+            //sessionStorage.setItem("idCliente", data.id);
+            window.clienteId = data.id;
             window.location.href = "../templates/index.html"; // Redireciona após o login
         }
     } catch (error) {
