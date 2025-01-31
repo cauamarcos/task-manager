@@ -37,7 +37,6 @@ async function logarUser(email, senha) {
 
 // Funccao para cadastrar o user
 async function cadastrarUser(name, email, senha) {
-    var response = null;
     try {
         const { data, error } = await supabase
             .from("users")
@@ -49,17 +48,16 @@ async function cadastrarUser(name, email, senha) {
         }
 
         if (data.length === 0) {
-            response = {
+            return {
                 status: false,
                 msg: "Usuario nao cadastrado"
             };
         } else {
-            response = {
+            return {
                 status: true,
                 msg: "Usuario cadastrado"
             };
         }
-        return response;
     } catch (error) {
         if (error.message.includes("duplicate key value")) {
             return {
