@@ -1,9 +1,11 @@
-import conectarAoBanco from "../config/dbConfig";
+import conectarAoBanco from "../config/dbConfig.js";
 
 const supabase = await conectarAoBanco();
 
 // Funçao para logar o user
 async function logarUser(email, senha) {
+    console.log(email)
+    console.log(senha)
     try {
         const { data, error } = await supabase
             .from("users")
@@ -14,7 +16,7 @@ async function logarUser(email, senha) {
         if (error) {
             throw error;
         }
-
+        console.log(data)
         if (data.length === 0) {
             return {
                 status: false,
@@ -36,11 +38,11 @@ async function logarUser(email, senha) {
 }
 
 // Funccao para cadastrar o user
-async function cadastrarUser(name, email, senha) {
+async function cadastrarUser(nome, email, senha) {
     try {
         const { data, error } = await supabase
             .from("users")
-            .insert([{ name: name, email: email, senha: senha }])
+            .insert([{ nome: nome, email: email, senha: senha }])
             .select();
 
         if (error) {
@@ -74,4 +76,4 @@ async function cadastrarUser(name, email, senha) {
     }
 }
 
-export default { logarUser, cadastrarUser };
+export { logarUser, cadastrarUser };

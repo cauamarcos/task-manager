@@ -41,9 +41,6 @@ function saveTodo(text, done = 0, save = 1) {
     if(done)
         todo.classList.add("done");
 
-    if(save)
-        saveTodoLocalStorage({text, done});
-
     todoList.appendChild(todo);
 
     todoInput.value = "";
@@ -64,8 +61,6 @@ const updateTodo = (text) => {
 
         if(todoTitle.innerText === oldTitle) {
             todoTitle.innerText = text;
-
-            updateTodoLocalStorage(oldTitle, text);
         }
     });
 }
@@ -111,53 +106,6 @@ const filterTodos = (filterValue) => {
     }
 }
 
-function getTodosLocalStorage() {
-    const todos = JSON.parse(localStorage.getItem("todos")) || [];
-
-    return todos;
-}
-
-function saveTodoLocalStorage(todo) {
-    // pega os todos já salvos
-    const todos = getTodosLocalStorage();
-    // adiciona o novo todo ao resto
-    todos.push(todo);
-    // salva a lista atualizada no armazenamento local
-    localStorage.setItem("todos", JSON.stringify(todos));
-}
-
-function loadTodos() {
-    const todos = getTodosLocalStorage();
-
-    todos.forEach((todo) => {
-        saveTodo(todo.text, todo.done, 0);
-    })
-}
-
-function deleteTodoLocalStorage(todoText) {
-    const todos = getTodosLocalStorage();
-
-    const filteredTodos = todos.filter((todo) => todo.text !== todoText);
-
-    localStorage.setItem("todos", JSON.stringify(filteredTodos));
-}
-
-function updateTodoStatusLocalStorage(todoText) {
-    const todos = getTodosLocalStorage();
-
-    todos.map((todo) => todo.text === todoText ? todo.done = !todo.done : null);
-
-    localStorage.setItem("todos", JSON.stringify(todos));
-}
-
-function updateTodoLocalStorage(todoOldText, todoNewText) {
-    const todos = getTodosLocalStorage();
-
-    todos.map((todo) => todo.text === todoOldText ? todo.text = todoNewText : null);
-
-    localStorage.setItem("todos", JSON.stringify(todos));
-}
-
 // Eventos
 addForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -178,14 +126,10 @@ document.addEventListener("click", (e) => {
 
     if(targetEl.classList.contains("finish-todo")) {
         parentEl.classList.toggle("done");
-
-        updateTodoStatusLocalStorage(todoTitle);
     }
 
     if(targetEl.classList.contains("delete-todo")) {
         parentEl.remove();
-
-        deleteTodoLocalStorage(todoTitle);
     }
 
     if(targetEl.classList.contains("edit-todo")) {

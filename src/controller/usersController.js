@@ -1,10 +1,10 @@
-import { logarUser, cadastrarUser } from "../models/usersModel.js";
+import { logarUser as logarUserModel, cadastrarUser as cadastrarUserModel} from "../models/usersModel.js";
 
 async function logarUser(req, res) {
     var email = req.body.email;
     var senha = req.body.senha;
 
-    const response = await logarUser(email, senha);
+    const response = await logarUserModel(email, senha);
 
     res.send(JSON.stringify(response));
 }
@@ -14,9 +14,9 @@ async function cadastrarUser(req, res) {
     var email = req.body.email;
     var senha = req.body.senha;
 
-    const response = await cadastrarUser(name, email, senha);
+    const response = await cadastrarUserModel(name, email, senha);
 
     res.send(JSON.stringify(response));
 }
 
-export default { logarUser, cadastrarUser };
+export { logarUser, cadastrarUser };

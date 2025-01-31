@@ -44,4 +44,4 @@ async function filtrarTasks(req, res) {
     res.send(JSON.stringify(response));
 }
 
-export default {listarTasks, criarTask, alterarTask, deletarTask, filtrarTasks};
+export {listarTasks, criarTask, alterarTask, deletarTask, filtrarTasks};
