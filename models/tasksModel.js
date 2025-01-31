@@ -2,84 +2,84 @@ import conectarAoBanco from "../config/dbConfig.js";
 
 const supabase = await conectarAoBanco();
 
-async function getTasksCliente(idCliente){
-    try{
+//Lista todas as taks de um user
+async function listarTasks(idCliente) {
+    try {
         const { data, error } = await supabase.from('tasks').select('*').eq('users_id', idCliente)
-    
+
         if (error) {
             throw error;
         }
-
         console.log(data)
         return data;
-    }catch(error){
+    } catch (error) {
         console.log(error)
         throw error
     }
 }
 
-async function criaTask(idCliente, descricao){
-    try{
-        const { data, error } = await supabase.from('tasks').insert([{ descricao: descricao, users_id: idCliente, finalizada: false}]).select()
-        
+//Cria uma task para um user
+async function criarTask(idCliente, descricao) {
+    try {
+        const { data, error } = await supabase.from('tasks').insert([{ descricao: descricao, users_id: idCliente, finalizada: false }]).select()
+
         if (error) {
             throw error;
         }
-
         console.log(data)
         return data;
-    }catch(error){
+    } catch (error) {
         console.log(error)
         throw error
     }
 }
 
-async function alteraTask(idTask, desc, finalizado){
-    try{
-        const {data, error} = await supabase.from(tasks).update({descricao: desc, finalizada: finalizado}).eq('id', idTask).select();
+//Altera uma task com base no id
+async function alterarTask(idTask, desc, finalizado) {
+    try {
+        const { data, error } = await supabase.from(tasks).update({ descricao: desc, finalizada: finalizado }).eq('id', idTask).select();
 
         if (error) {
             throw error;
         }
-
         console.log(data)
         return data;
-    }catch(error){
+    } catch (error) {
         console.log(error)
         throw error
     }
 }
 
-async function excluiTasks(idTask){
-    try{
-        const {data, error} = await supabase.from(tasks).delete().eq('id', idTask)
-        
+//Deleta uma task com base no id
+async function deletarTask(idTask) {
+    try {
+        const { data, error } = await supabase.from(tasks).delete().eq('id', idTask)
+
         if (error) {
             throw error;
         }
-
         console.log(data)
         return data;
-    }catch(error){
+    } catch (error) {
         console.log(error)
         throw error
     }
 }
 
-async function filtraTarefas(idCliente, finalizado) {
-    try{
-        const {data, error} = await supabase.from(tasks).select('*').eq('users_id', idCliente).eq('finalizada', finalizado)
-        
+//Filtrar as taks de um user de acordo com o status de finalizada
+async function filtrarTasks(idCliente, finalizado) {
+    try {
+        const { data, error } = await supabase.from(tasks).select('*').eq('users_id', idCliente).eq('finalizada', finalizado)
+
         if (error) {
             throw error;
         }
-
         console.log(data)
         return data;
-    }catch(error){
+    } catch (error) {
         console.log(error)
         throw error
     }
 }
 
-export default {getTasksCliente, criaTask, alteraTask, excluiTasks, filtraTarefas}
+export default { listarTasks, criarTask, alterarTask, deletarTask, filtrarTasks }
