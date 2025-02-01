@@ -43,9 +43,7 @@ form.addEventListener("submit", async function (e) {
             throw new Error("Erro! E-mail ou senha invalidos");
         }
         else {
-            console.log(data.id)
-            //sessionStorage.setItem("idCliente", data.id);
-            window.clienteId = data.id;
+            localStorage.setItem("idCliente", data.data[0].id);
             window.location.href = "../templates/index.html"; // Redireciona após o login
         }
     } catch (error) {

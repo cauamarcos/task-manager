@@ -5,7 +5,7 @@ const supabase = await conectarAoBanco();
 // Lista todas as tasks de um user
 async function listarTasks(idCliente) {
     try {
-        const { data, error } = await supabase.from('tasks').select('*').eq('users_id', idCliente);
+        const { data, error } = await supabase.from('task').select('*').eq('users_id', idCliente);
         if (error) {
             return { status: false, msg: `Erro ao listar tarefas: ${error.message}`, data: null };
         }
@@ -18,9 +18,14 @@ async function listarTasks(idCliente) {
 
 // Cria uma task para um user
 async function criarTask(idCliente, descricao) {
-    console.log(descricao);
     try {
-        const { data, error } = await supabase.from('tasks').insert([{ descricao: descricao, users_id: idCliente, finalizada: false }]).select();
+        const { data, error } = await supabase
+            .from('task')
+            .insert([{
+                descricao: descricao,
+                users_id: idCliente,
+                finalizada: false
+            }]).select();
 
         if (error) {
             return { status: false, msg: `Erro ao criar tarefa: ${error.message}`, data: null };
@@ -35,7 +40,7 @@ async function criarTask(idCliente, descricao) {
 // Altera uma task com base no id
 async function alterarTask(idTask, desc, finalizado) {
     try {
-        const { data, error } = await supabase.from('tasks').update({ descricao: desc, finalizada: finalizado }).eq('id', idTask).select();
+        const { data, error } = await supabase.from('task').update({ descricao: desc, finalizada: finalizado }).eq('id', idTask).select();
 
         if (error) {
             return { status: false, msg: `Erro ao alterar tarefa: ${error.message}`, data: null };
@@ -50,7 +55,7 @@ async function alterarTask(idTask, desc, finalizado) {
 // Deleta uma task com base no id
 async function deletarTask(idTask) {
     try {
-        const { data, error } = await supabase.from('tasks').delete().eq('id', idTask);
+        const { data, error } = await supabase.from('task').delete().eq('id', idTask);
 
         if (error) {
             return { status: false, msg: `Erro ao deletar tarefa: ${error.message}`, data: null };
@@ -65,7 +70,7 @@ async function deletarTask(idTask) {
 // Filtra as tasks de um user de acordo com o status de finalizada
 async function filtrarTasks(idCliente, finalizado) {
     try {
-        const { data, error } = await supabase.from('tasks').select('*').eq('users_id', idCliente).eq('finalizada', finalizado);
+        const { data, error } = await supabase.from('task').select('*').eq('users_id', idCliente).eq('finalizada', finalizado);
 
         if (error) {
             return { status: false, msg: `Erro ao filtrar tarefas: ${error.message}`, data: null };

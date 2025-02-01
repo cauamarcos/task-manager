@@ -19,18 +19,21 @@ async function logarUser(email, senha) {
         if (data.length === 0) {
             return {
                 status: false,
-                msg: "Email ou senha incorretos"
+                msg: "Email ou senha incorretos",
+                data: null
             };
         }
         return {
             status: true,
-            msg: "Usuario autenticado"
+            msg: "Usuario autenticado",
+            data: data
         };
     } catch (error) {
         console.log(error);
         return {
             status: false,
-            msg: "Erro ao tentar fazer login"
+            msg: "Erro ao tentar fazer login",
+            data: null
         };
     }
 }
