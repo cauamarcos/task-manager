@@ -17,14 +17,15 @@ async function listarTasks(idCliente) {
 }
 
 // Cria uma task para um user
-async function criarTask(idCliente, descricao) {
+async function criarTask(idCliente, descricao, prioridade) {
     try {
         const { data, error } = await supabase
             .from('task')
             .insert([{
                 descricao: descricao,
                 users_id: idCliente,
-                finalizada: false
+                finalizada: false,
+                prioridade: prioridade
             }]).select();
 
         if (error) {
@@ -38,9 +39,9 @@ async function criarTask(idCliente, descricao) {
 }
 
 // Altera uma task com base no id
-async function alterarTask(idTask, desc, finalizado) {
+async function alterarTask(idTask, desc, finalizado, timestamp) {
     try {
-        const { data, error } = await supabase.from('task').update({ descricao: desc, finalizada: finalizado }).eq('id', idTask).select('*');
+        const { data, error } = await supabase.from('task').update({ descricao: desc, finalizada: finalizado, ended_at: timestamp }).eq('id', idTask).select('*');
 
         if (error) {
             return { status: false, msg: `Erro ao alterar tarefa: ${error.message}`, data: null };

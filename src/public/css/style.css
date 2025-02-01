@@ -6,26 +6,28 @@
 }
 
 body {
-    background-image: url("../img/fundo.jpg");
+    background-color: #090e22;
     background-size: cover;
     background-attachment: fixed;
     height: 100vh;
+    padding: 20px;
 }
 
 #container {
     background-color: #fafafa;
     height: fit-content;
-    max-width: 400px;
-    margin: 7rem auto;
+    max-width: 600px;
+    margin: 0 auto;
     border-radius: 15px;
     padding: 20px 15px;
     align-self: center;
 }
 
-h1 {
-    text-align: center;
+header {
+    display: flex;
+    justify-content: space-between;
     color: #222;
-    padding-bottom: 1rem;
+    padding: 0 1rem 1rem;
     border-bottom: 1px solid #ccc;
 }
 
@@ -33,6 +35,10 @@ form,
 .todo {
     padding: 1rem;
     border-bottom: 1px solid #ccc;
+}
+
+#edit-form {
+    border-bottom: none !important;
 }
 
 label {
@@ -46,6 +52,11 @@ input,
 select {
     padding: 5px;
     border: 1px solid #ccc;
+}
+
+#priority-select,
+#priority-filter-select {
+    width: 90px;
 }
 
 button {
@@ -66,26 +77,38 @@ button:hover {
     background-color: rgb(2, 2, 95);
 }
 
+#cancel-edit {
+    display: flex;
+    justify-content: center;
+}
+
 #cancel-edit-btn {
-    display: block;
     margin-top: 10px
 }
 
-#search-form {
+form {
     display: flex;
 }
 
-#search-side {
+#search-side,
+#title-side {
     margin-right: 20px;
 }
 
-#search-side input {
-    width: 150px;
+input[type="text"] {
+    width: 250px;
+}
+
+#filter-side,
+#priority-side {
+    padding-left: 20px;
+    border-left: 1px solid #ccc;
 }
 
 #filter-side {
-    padding-left: 20px;
-    border-left: 1px solid #ccc;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
 }
 
 #filter-side input {
@@ -99,9 +122,22 @@ button:hover {
     transition: .3s;
 }
 
-.todo p {
+.todo abbr {
     flex: 1;
     font-weight: bold;
+    text-decoration: none;
+}
+
+.low abbr:hover {
+    color: green;
+}
+
+.medium abbr:hover {
+    color: orange;
+}
+
+.high abbr:hover {
+    color: red;
 }
 
 .todo button {
@@ -117,4 +153,8 @@ button:hover {
     text-decoration:line-through;
     font-style: italic;
     background-color: rgb(2, 2, 95);
+}
+
+#dashboard-btn {
+    min-width: 60px;
 }

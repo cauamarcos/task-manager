@@ -15,34 +15,79 @@
 
 <body>
     <div id="container">
-        <h1>Todo Avançado</h1>
-        <form id="add-form">
-            <label for="todo">Adicione sua tarefa</label>
-            <input type="text" id="todo-input" name="todo" placeholder="O que você vai fazer?">
-            <button type="submit"><i class="fa-solid fa-plus"></i></button>
-        </form>
-        <form id="edit-form" class="hide">
-            <label for="edit">Edite a sua tarefa:</label>
-            <input type="text" id="edit-input" name="edit">
-            <button type="submit"><i class="fa-solid fa-check-double"></i></button>
-            <button id="cancel-edit-btn">Cancelar</button>
-        </form>
-        <form id="search-form">
-            <div id="search-side">
-                <label for="search">Pesquisar:</label>
-                <input type="text" id="search-input" name="search" placeholder="Buscar...">
-                <button id="erase-btn"><i class="fa-solid fa-delete-left"></i></button>
+        <header>
+            <h1>Task Manager</h1>
+            <button id="dashboard-btn">Ver dashboard</button>
+        </header>
+        <div id="add-todo">
+            <form id="add-form">
+                <div id="title-side">
+                    <label for="todo">Adicione sua tarefa</label>
+                    <input type="text" id="todo-input" name="todo" placeholder="O que você vai fazer?">
+                    <button type="submit"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <div id="priority-side">
+                    <label for="priority">Prioridade:</label>
+                    <select id="priority-select">
+                        <option value="low">Baixa</option>
+                        <option value="medium">Média</option>
+                        <option value="high">Alta</option>
+                    </select>
+                </div>
+            </form>
+            
+            <form id="search-form">
+                <div id="search-side">
+                    <label for="search">Pesquisar:</label>
+                    <input type="text" id="search-input" name="search" placeholder="Buscar...">
+                    <button id="erase-btn"><i class="fa-solid fa-delete-left"></i></button>
+                </div>
+                <div id="filter-side">
+                    <div>
+                        <label for="status">Status:</label>
+                        <select id="status-select">
+                            <option value="all">Todos</option>
+                            <option value="done">Feitos</option>
+                            <option value="todo">A fazer</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="priority-filter">Prioridade:</label>
+                        <select id="priority-filter-select">
+                            <option value="all">Qualquer</option>
+                            <option value="low">Baixa</option>
+                            <option value="medium">Média</option>
+                            <option value="high">Alta</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div id="todo-list">
             </div>
-            <div id="filter-side">
-                <label for="filter">Filtrar:</label>
-                <select id="filter-select">
-                    <option value="all">Todos</option>
-                    <option value="done">Feitos</option>
-                    <option value="todo">A fazer</option>
-                </select>
-            </div>
-        </form>
-        <div id="todo-list">
+        </div>
+
+        <div id="edit-todo" class="hide">
+            <form id="edit-form">
+                <div id="title-side">
+                    <label for="edit">Edite a sua tarefa:</label>
+                    <input type="text" id="edit-input" name="edit">
+                    <button type="submit"><i class="fa-solid fa-check-double"></i></button>
+                </div>
+                <div id="priority-side">
+                    <label for="priority">Prioridade:</label>
+                    <select id="priority-select">
+                        <option value="low">Baixa</option>
+                        <option value="medium">Média</option>
+                        <option value="high">Alta</option>
+                    </select>
+                </div>
+            </form>
+            <div id="cancel-edit"><button id="cancel-edit-btn">Cancelar</button></div>
+        </div>
+
+        <div id="dashboard" class="hide">
+            <h2>Dashboard</h2>
         </div>
     </div>
 </body>

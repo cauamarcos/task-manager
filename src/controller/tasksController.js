@@ -11,7 +11,8 @@ async function listarTasks(req, res) {
 async function criarTask(req, res) {
     var user_id = req.params.idUser;
     var descricao = req.body.descricao;
-    const response = await usersModel.criarTask(user_id, descricao);
+    var prioridade = req.body.prioridade;
+    const response = await usersModel.criarTask(user_id, descricao, prioridade);
 
     res.send(JSON.stringify(response));
 }
@@ -20,8 +21,8 @@ async function alterarTask(req, res) {
     var task_id = req.params.idTask;
     var descricao = req.body.descricao;
     var finalizada = req.body.finalizada;
-
-    const response = await usersModel.alterarTask(task_id, descricao, finalizada);
+    const timestamp = finalizada ? new Date().toISOString() : null;
+    const response = await usersModel.alterarTask(task_id, descricao, finalizada, timestamp);
 
     res.send(JSON.stringify(response));
 }
