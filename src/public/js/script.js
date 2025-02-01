@@ -20,8 +20,6 @@ let oldTitle;
 function saveTodo(text, idTask, done = 0, save = 1) {
     const todo = document.createElement("div");
     todo.classList.add("todo");
-    //todo.dataset.id = idTask;
-    console.log("isTask: ", idTask);
     todo.setAttribute("data-id", idTask);
 
     const todoTitle = document.createElement("p");
@@ -52,8 +50,6 @@ function saveTodo(text, idTask, done = 0, save = 1) {
 }
 
 async function criarTask(descricao) {
-    // const idCliente = localStorage.getItem("idCliente");
-    //console.log(idCliente)
     try {
         const idCliente = localStorage.getItem("idCliente");
         if (!idCliente) {
@@ -76,7 +72,6 @@ async function criarTask(descricao) {
             return null;
         }
         else {
-            //console.log("Tarefa criada:", novaTarefa);
             return novaTarefa;
         }
 
@@ -95,7 +90,6 @@ async function carregarTarefas() {
     try {
         const response = await fetch(`http://localhost:3000/tasks/${idCliente}/`);
         const tarefas = await response.json();
-        //console.log(tarefas);
         tarefas.data.forEach((tarefa) => {
             saveTodo(tarefa.descricao, tarefa.id, tarefa.finalizada ? 1 : 0, 0);
         });
@@ -108,9 +102,9 @@ async function carregarTarefas() {
 // Chama essa função ao carregar a página
 document.addEventListener("DOMContentLoaded", carregarTarefas);
 
-async function deletarTask(id) {
+async function deletarTask(idTask) {
     try {
-        const response = await fetch(`http://localhost:3000/tasks/deletar/${id}`, {
+        const response = await fetch(`http://localhost:3000/tasks/deletar/${idTask}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" }
         });
@@ -118,7 +112,7 @@ async function deletarTask(id) {
         const result = await response.json();
 
         if (result.status) {
-            console.log("Tarefa removida com sucesso:", id);
+            console.log("Tarefa removida com sucesso!");
         } else {
             console.error("Erro ao remover tarefa:", result.error);
         }
@@ -128,19 +122,39 @@ async function deletarTask(id) {
     }
 }
 
+async function alterarTask(idTask, descricao, finalizada) {
+    try {
+        const response = await fetch(`http://localhost:3000/tasks/alterar/${idTask}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ descricao: descricao, finalizada: finalizada })
+        });
+
+        const result = await response.json();
+
+        if (result.status) {
+            console.log("Tarefa alterada com sucesso!");
+            return result.data;
+        } else {
+            console.error("Erro ao alterar tarefa:", result.error);
+            return null;
+        }
+    } catch (error) {
+        console.error("Erro ao alterar tarefa:", error);
+    }
+}
+
 const toggleForms = () => {
     editForm.classList.toggle("hide");
     addForm.classList.toggle("hide");
     todoList.classList.toggle("hide");
 }
 
-const updateTodo = (text) => {
+const updateTodo = (idTodo, text) => {
     const todos = document.querySelectorAll(".todo");
-
     todos.forEach((todo) => {
-        let todoTitle = todo.querySelector("p");
-
-        if (todoTitle.innerText === oldTitle) {
+        if (todo.dataset.id === idTodo) {
+            let todoTitle = todo.querySelector("p");
             todoTitle.innerText = text;
         }
     });
@@ -224,23 +238,36 @@ document.addEventListener("click", async (e) => {
         toggleForms();
 
         editInput.value = todoTitle;
-        oldTitle = todoTitle;
+        const idTodo = parentEl.dataset.id;
+
+        editForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const editInputValue = editInput.value;
+
+            if (editInputValue) {
+                const data = await alterarTask(idTodo, editInputValue, parentEl.classList.contains("done"));
+
+                if (data !== null) {
+                    updateTodo(data[0].id, data[0].descricao);
+                    // Atualização da classe 'done'
+                    if (data.finalizada) {
+                        parentEl.classList.add("done");
+                    } else {
+                        parentEl.classList.remove("done");
+                    }
+                } else {
+                    console.error("Erro ao alterar tarefa");
+                }
+            }
+            toggleForms();
+        }, { once: true });
+
     }
 });
 
 cancelBtn.addEventListener("click", (e) => {
     e.preventDefault();
-
-    toggleForms();
-});
-
-editForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const editInputValue = editInput.value;
-
-    if (editInputValue)
-        updateTodo(editInputValue);
 
     toggleForms();
 });

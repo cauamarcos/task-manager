@@ -40,7 +40,7 @@ async function criarTask(idCliente, descricao) {
 // Altera uma task com base no id
 async function alterarTask(idTask, desc, finalizado) {
     try {
-        const { data, error } = await supabase.from('task').update({ descricao: desc, finalizada: finalizado }).eq('id', idTask).select();
+        const { data, error } = await supabase.from('task').update({ descricao: desc, finalizada: finalizado }).eq('id', idTask).select('*');
 
         if (error) {
             return { status: false, msg: `Erro ao alterar tarefa: ${error.message}`, data: null };
