@@ -76,7 +76,7 @@
                 </div>
                 <div id="priority-side">
                     <label for="priority">Prioridade:</label>
-                    <select id="priority-select">
+                    <select id="priority-edit">
                         <option value="low">Baixa</option>
                         <option value="medium">Média</option>
                         <option value="high">Alta</option>
@@ -87,9 +87,33 @@
         </div>
 
         <div id="dashboard" class="hide">
-            <h2>Dashboard</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">Veja as tarefas de acordo com a prioridade desejada</p>
+                            <div id="dashboard-filters">
+                                <div>
+                                    <label for="dashboard-priority-select">Prioridade:</label>
+                                    <select id="dashboard-priority-select">
+                                        <option value="all">Qualquer</option>
+                                        <option value="low">Baixa</option>
+                                        <option value="medium">Média</option>
+                                        <option value="high">Alta</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="graficoPizza"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <button id="logout-btn"><i class="fa-solid fa-right-from-bracket"></i></button>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </html>

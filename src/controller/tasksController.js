@@ -21,8 +21,9 @@ async function alterarTask(req, res) {
     var task_id = req.params.idTask;
     var descricao = req.body.descricao;
     var finalizada = req.body.finalizada;
+    var prioridade = req.body.prioridade;
     const timestamp = finalizada ? new Date().toISOString() : null;
-    const response = await usersModel.alterarTask(task_id, descricao, finalizada, timestamp);
+    const response = await usersModel.alterarTask(task_id, descricao, finalizada, timestamp, prioridade);
 
     res.send(JSON.stringify(response));
 }
@@ -35,13 +36,12 @@ async function deletarTask(req, res) {
     res.send(JSON.stringify(response));
 }
 
-async function filtrarTasks(req, res) {
+async function buscarDados(req, res) {
     var user_id = req.params.idUser;
-    var finalizada = req.body.finalizada;
 
-    const response = await usersModel.filtrarTasks(user_id, finalizada);
-
+    const response = await usersModel.buscarDados(user_id);
+    console.log("Controleer: ", response);
     res.send(JSON.stringify(response));
 }
 
-export { listarTasks, criarTask, alterarTask, deletarTask, filtrarTasks };
+export { listarTasks, criarTask, alterarTask, deletarTask, buscarDados };

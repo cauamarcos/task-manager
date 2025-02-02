@@ -39,14 +39,12 @@ async function criarTask(idCliente, descricao, prioridade) {
 }
 
 // Altera uma task com base no id
-async function alterarTask(idTask, desc, finalizado, timestamp) {
+async function alterarTask(idTask, desc, finalizado, timestamp, prioridade) {
     try {
-        const { data, error } = await supabase.from('task').update({ descricao: desc, finalizada: finalizado, ended_at: timestamp }).eq('id', idTask).select('*');
-
+        const { data, error } = await supabase.from('task').update({ descricao: desc, finalizada: finalizado, ended_at: timestamp, prioridade: prioridade }).eq('id', idTask).select('*');
         if (error) {
             return { status: false, msg: `Erro ao alterar tarefa: ${error.message}`, data: null };
         }
-
         return { status: true, msg: "Tarefa alterada com sucesso.", data: data };
     } catch (error) {
         return { status: false, msg: `Erro ao alterar tarefa: ${error.message}`, data: null };
@@ -69,18 +67,18 @@ async function deletarTask(idTask) {
 }
 
 // Filtra as tasks de um user de acordo com o status de finalizada
-async function filtrarTasks(idCliente, finalizado) {
+async function buscarDados(idCliente) {
     try {
-        const { data, error } = await supabase.from('task').select('*').eq('users_id', idCliente).eq('finalizada', finalizado);
+        console.log(idCliente)
+        const { data, error } = await supabase.rpc("dashboard_query", { user_id: idCliente });  
 
         if (error) {
-            return { status: false, msg: `Erro ao filtrar tarefas: ${error.message}`, data: null };
+            return { status: false, msg: `Erro ao buscar dados para o dashboard: ${error.message}`, data: null };
         }
-
-        return { status: true, msg: "Tarefas filtradas com sucesso.", data: data };
+        return { status: true, msg: "Dados buscados com sucesso", data: data };
     } catch (error) {
-        return { status: false, msg: `Erro ao filtrar tarefas: ${error.message}`, data: null };
+        return { status: false, msg: `Erro ao conexao com o supabase: ${error.message}`, data: null };
     }
 }
 
-export default { listarTasks, criarTask, alterarTask, deletarTask, filtrarTasks };
+export default { listarTasks, criarTask, alterarTask, deletarTask, buscarDados };

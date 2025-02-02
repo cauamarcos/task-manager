@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #090e22;
+    background-color: #0b153d;
     background-size: cover;
     background-attachment: fixed;
     height: 100vh;
@@ -157,4 +157,30 @@ input[type="text"] {
 
 #dashboard-btn {
     min-width: 60px;
+}
+
+#dashboard-filters {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px 0;
+}
+
+#dashboard p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: #afafaf;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 300px;
+}
+
+#logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
