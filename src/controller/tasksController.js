@@ -40,7 +40,6 @@ async function buscarDados(req, res) {
     var user_id = req.params.idUser;
 
     const response = await usersModel.buscarDados(user_id);
-    console.log("Controleer: ", response);
     res.send(JSON.stringify(response));
 }
 

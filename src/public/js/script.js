@@ -119,6 +119,11 @@ async function carregarTarefas() {
 }
 
 async function deletarTask(idTask) {
+    const idCliente = localStorage.getItem("idCliente");
+    if (!idCliente) {
+        // Redireciona para o login se não houver ID
+        window.location.href = "../templates/login.html";
+    }
     try {
         const response = await fetch(`http://localhost:3000/tasks/deletar/${idTask}`, {
             method: "DELETE",
@@ -138,6 +143,11 @@ async function deletarTask(idTask) {
 }
 
 async function alterarTask(idTask, descricao, finalizada, prioridade) {
+    const idCliente = localStorage.getItem("idCliente");
+    if (!idCliente) {
+        // Redireciona para o login se não houver ID
+        window.location.href = "../templates/login.html";
+    }
     try {
         const response = await fetch(`http://localhost:3000/tasks/alterar/${idTask}`, {
             method: "PUT",
