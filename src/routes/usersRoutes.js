@@ -1,5 +1,5 @@
 import express from "express";
-import { logarUser, cadastrarUser, logoutUser } from "../controller/usersController.js"
+import { logarUser, cadastrarUser } from "../controller/usersController.js"
 
 const router = express.Router();
 
@@ -8,6 +8,5 @@ const router = express.Router();
 //Rotas dos users
 router.post("/login/", logarUser);
 router.post("/cadastro/", cadastrarUser);
-router.post("/logout/", logoutUser)
 
 export default router;

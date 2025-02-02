@@ -393,7 +393,20 @@ document.addEventListener("click", async (e) => {
             "submit",
             async (e) => {
                 e.preventDefault();
-
+                async function logoutUser() {
+                    try {
+                        localStorage.removeItem('idCliente')
+                        console.log('Logged out successfully!');
+                        window.location.href = '../templates/login.html';
+                    } catch (error) {
+                        console.error('Error during logout:', error);
+                    }
+                }
+                
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logoutUser();
+                });
                 const editInputValue = editInput.value;
                 const prioridade = priorityEdit.value;
                 console.log("script_prioridade: ", prioridade);
@@ -503,20 +516,9 @@ dashboardPrioritySelect.addEventListener("change", async () => {
 
 async function logoutUser() {
     try {
-        const response = await fetch('http://localhost:3000/users/logout', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        });
-
-        const result = await response.json();
-
-        if (result.status) {
-            console.log('Logged out successfully!');
-            
-            window.location.href = '../templates/login.html';
-        } else {
-            console.error('Error during logout:', result.message);
-        }
+        localStorage.removeItem('idCliente')
+        console.log('Logged out successfully!');
+        window.location.href = '../templates/login.html';
     } catch (error) {
         console.error('Error during logout:', error);
     }
