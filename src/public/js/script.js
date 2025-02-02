@@ -458,13 +458,13 @@ dashboardBtn.addEventListener("click", async () => {
             else if (prioridade.prioridade == "medium") media = prioridade.total_tarefas;
             else alta = prioridade.total_tarefas;
         });
-        graficoPizzaTodos(baixa, media, alta);
+        dashboardPrioritySelect.dispatchEvent(new Event("change"));
 
         showDashboard();
     } else hideDashboard();
 });
 
-dashboardPrioritySelect.addEventListener("change", async (e) => {
+dashboardPrioritySelect.addEventListener("change", async () => {
     const idCliente = localStorage.getItem("idCliente");
     var data = await buscarDados(idCliente);
     let baixa, baixaFeitas, baixaNaoFeitas, media, mediaFeitas, mediaNaoFeitas, alta, altaFeitas, altaNaoFeitas;
