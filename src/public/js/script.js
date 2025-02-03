@@ -308,7 +308,7 @@ async function buscarDados(idCliente) {
 
 function graficoPizzaTodos(baixa, media, alta) {
     const ctx = document.getElementById("graficoPizza");
-    
+
     if (mychart) {
         mychart.destroy();
     }
@@ -331,7 +331,7 @@ function graficoPizzaTodos(baixa, media, alta) {
 
 function graficoPizzaPrioridade(feitos, a_fazer) {
     const ctx = document.getElementById("graficoPizza");
-    
+
     if (mychart) {
         mychart.destroy();
     }
@@ -375,7 +375,10 @@ document.addEventListener("click", async (e) => {
     if (targetEl.classList.contains("finish-todo")) {
         const todoId = parentEl.dataset.id;
         const finalizada = !parentEl.classList.contains("done");
-        const prioridade = prioritySelect.value;
+        // const prioridade = prioritySelect.value;
+        if (parentEl.classList.contains("low")) prioridade = "low";
+        else if (parentEl.classList.contains("medium")) prioridade = "medium";
+        else prioridade = "high";
         const response = await alterarTask(todoId, todoTitle, finalizada, prioridade);
         if (response != null) {
             parentEl.classList.toggle("done");
@@ -387,7 +390,6 @@ document.addEventListener("click", async (e) => {
     // Remover a tarefa
     if (targetEl.classList.contains("delete-todo")) {
         const todoId = parentEl.dataset.id; // Pegamos o ID da tarefa armazenado no atributo data-id
-        console.log("Id: ", todoId);
         await deletarTask(todoId); // Chama a função para remover a tarefa no backend
 
         parentEl.remove(); // Remove a tarefa do HTML
@@ -412,7 +414,7 @@ document.addEventListener("click", async (e) => {
                         console.error('Error during logout:', error);
                     }
                 }
-                
+
                 logoutBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     logoutUser();
