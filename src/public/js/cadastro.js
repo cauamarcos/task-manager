@@ -20,9 +20,9 @@ cancelBtn.addEventListener("click", () => {
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = form.name.valueOf.trim();
-    const email = form.email.valueOf.trim();
-    const password = form.password.valueOf.trim();
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const password = form.password.value.trim();
 
     if (!email || !password) {
         alert("Por favor, preencha todos os campos.");
